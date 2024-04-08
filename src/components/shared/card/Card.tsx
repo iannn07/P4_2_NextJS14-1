@@ -1,7 +1,7 @@
 'use client';
 
 import { CarProps } from '@/types';
-import { calculateRent } from '@/utils';
+import { calculateRent, generateCarImageURL } from '@/utils';
 import Image from 'next/image';
 import CustomButton from '../button/CustomButton';
 import { useState } from 'react';
@@ -36,7 +36,7 @@ const Card = ({ car }: CardProps) => {
       {/* Car Image */}
       <div className='relative w-full h-40 my-3 object-contain'>
         <Image
-          src='/hero.png'
+          src={generateCarImageURL(car, "01")}
           alt='hero'
           fill
           className='object-contain'
