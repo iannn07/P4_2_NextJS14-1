@@ -1,4 +1,5 @@
 import { MouseEventHandler } from 'react';
+import CustomFilter from '../components/shared/filter/CustomFilter';
 
 export interface CustomButtonProps {
   title: string;
@@ -40,4 +41,14 @@ export interface FilterProps {
 
 export interface HomeProps {
   searchParams: FilterProps;
+}
+
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+export interface CustomFilterProps {
+  title: string;
+  options: OptionProps[];
 }
