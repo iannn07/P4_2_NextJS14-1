@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function getCars(filters: FilterProps) {
   const { brand, year, model, limit, fuel } = filters;
-  console.log(filters);
+  // console.log(filters);
 
   const response = await axios.get(
     `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${brand}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,

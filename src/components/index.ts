@@ -8,6 +8,7 @@ import SearchManufacturer from './shared/filter/SearchBrand';
 import SearchButton from './shared/filter/SearchButton';
 import Card from './shared/card/Card';
 import CardDetails from './shared/card/CardDetails';
+import ShowMore from './shared/button/ShowMore';
 
 export {
   Hero,
@@ -19,5 +20,6 @@ export {
   SearchManufacturer,
   SearchButton,
   Card,
-  CardDetails
+  CardDetails,
+  ShowMore
 };
