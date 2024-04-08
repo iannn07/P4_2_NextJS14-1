@@ -4,7 +4,9 @@ import Image from 'next/image';
 import CustomButton from './shared/button/CustomButton';
 
 const Hero = () => {
-  const handleScroll = () => {};
+  const handleScroll = () => {
+    console.log('clicked');
+  };
 
   return (
     <div className='hero'>

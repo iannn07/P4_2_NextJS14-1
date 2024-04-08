@@ -1,21 +1,21 @@
 'use client';
 
-import { SearchManufacturerProps } from '@/types';
+import { SearchBrandProps } from '@/types';
 import { Combobox, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { useState, Fragment } from 'react';
-import { manufacturers } from '@/constants/index';
+import { brands } from '@/constants/index';
 
-const SearchManufacturer = ({
-  manufacturer,
-  setManufacturer,
-}: SearchManufacturerProps) => {
+const SearchBrand = ({
+  brand,
+  setBrand,
+}: SearchBrandProps) => {
   const [query, setQuery] = useState('');
 
-  const filteredManufacturers =
+  const filteredBrands =
     query === ''
-      ? manufacturers
-      : manufacturers.filter((item) => {
+      ? brands
+      : brands.filter((item) => {
           return item
             .toLowerCase()
             .replace(/\s+/g, '')
@@ -24,7 +24,7 @@ const SearchManufacturer = ({
 
   return (
     <div className='search-manufacturer'>
-      <Combobox value={manufacturer} onChange={setManufacturer}>
+      <Combobox value={brand} onChange={setBrand}>
         <div className='relative w-full'>
           <Combobox.Button className={'absolute top-[14px]'}>
             <Image
@@ -39,7 +39,7 @@ const SearchManufacturer = ({
           <Combobox.Input
             className='search-manufacturer__input'
             placeholder='Hyundai'
-            displayValue={(manufacturer: string) => manufacturer}
+            displayValue={(brand: string) => brand}
             onChange={(e) => {
               setQuery(e.target.value);
             }}
@@ -53,7 +53,7 @@ const SearchManufacturer = ({
             afterLeave={() => setQuery('')}
           >
             <Combobox.Options>
-              {filteredManufacturers.length === 0 && query !== '' ? (
+              {filteredBrands.length === 0 && query !== '' ? (
                 <Combobox.Option
                   value={query}
                   className='search-manufacturer__option'
@@ -61,10 +61,10 @@ const SearchManufacturer = ({
                   Nothing Found.
                 </Combobox.Option>
               ) : (
-                filteredManufacturers.map((manufacturer: string) => (
+                filteredBrands.map((brand: string) => (
                   <Combobox.Option
-                    key={manufacturer}
-                    value={manufacturer}
+                    key={brand}
+                    value={brand}
                     className={({ active }) =>
                       `relative search-manufacturer__option ${
                         active ? 'bg-primary-blue text-white' : 'text-gray-900'
@@ -78,7 +78,7 @@ const SearchManufacturer = ({
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {manufacturer}
+                          {brand}
                         </span>
 
                         {selected ? (
@@ -103,4 +103,4 @@ const SearchManufacturer = ({
   );
 };
 
-export default SearchManufacturer;
+export default SearchBrand;
