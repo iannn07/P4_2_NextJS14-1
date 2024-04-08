@@ -1,8 +1,21 @@
 import { Card, CustomFilter, Hero, SearchBar } from '@/components';
+import { HomeProps } from '@/types';
 import { getCars } from '@/utils';
+import { revalidatePath } from 'next/cache';
 
-export default async function Home() {
-  const allCars = await getCars();
+export default async function Home({ searchParams }: HomeProps) {
+  const { brand, year, model, limit, fuel } = searchParams;
+  
+  // API BUG DEFAULT VALUE
+  const allCars = await getCars({
+    brand: brand || '',
+    model: model || '',
+    year: year || 2000,
+    fuel: fuel || '',
+    limit: limit || 20,
+  });
+
+  console.log(allCars)
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 

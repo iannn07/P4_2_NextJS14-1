@@ -36,7 +36,7 @@ const Card = ({ car }: CardProps) => {
       {/* Car Image */}
       <div className='relative w-full h-40 my-3 object-contain'>
         <Image
-          src={generateCarImageURL(car, "01")}
+          src={generateCarImageURL(car, '01')}
           alt='hero'
           fill
           className='object-contain'
