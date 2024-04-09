@@ -1,22 +1,48 @@
+'use client';
+
 import { Card, CustomFilter, Hero, SearchBar, ShowMore } from '@/components';
 import { fuels, yearsOfProduction } from '@/constants';
-import { HomeProps } from '@/types';
 import { getCars } from '@/utils';
-import { revalidatePath } from 'next/cache';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-export default async function Home({ searchParams }: HomeProps) {
-  const { brand, year, model, limit, fuel } = searchParams;
+export default function Home() {
+  const [allCars, setAllCars] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // API BUG DEFAULT VALUE
-  const allCars = await getCars({
-    brand: brand || '',
-    model: model || '',
-    year: year || 2000,
-    fuel: fuel || '',
-    limit: limit || 20,
-  });
+  // Search State
+  const [brand, setBrand] = useState('');
+  const [model, setModel] = useState('');
 
-  const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
+  // Filter State
+  const [fuel, setFuel] = useState('');
+  const [year, setYear] = useState(2000);
+
+  // Pagination State
+  const [limit, setLimit] = useState(10);
+
+  const fetchCars = async () => {
+    setLoading(true);
+    try {
+      const result = await getCars({
+        brand: brand || '',
+        fuel: fuel || '',
+        limit: limit || 10,
+        model: model || '',
+        year: year || 2000,
+      });
+      setAllCars(result);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCars();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brand, fuel, limit, model, year]);
 
   return (
     <main className='overflow-hidden'>
@@ -31,32 +57,47 @@ export default async function Home({ searchParams }: HomeProps) {
         </div>
 
         <div className='home__filters'>
-          <SearchBar />
+          <SearchBar setModel={setModel} setBrand={setBrand} />
           <div className='home__filter-container'>
-            <CustomFilter title='fuel' options={fuels} />
-            <CustomFilter title='year' options={yearsOfProduction} />
+            <CustomFilter title='fuel' options={fuels} setFilter={setFuel} />
+            <CustomFilter
+              title='year'
+              options={yearsOfProduction}
+              setFilter={setYear}
+            />
           </div>
         </div>
 
-        {!isDataEmpty ? (
+        {allCars.length > 0 ? (
           <section>
             <div className='home__cars-wrapper'>
               {allCars?.map((car) => (
-                <div key={car.id} className='home__car-container'>
-                  <Card car={car} />
-                </div>
+                // eslint-disable-next-line react/jsx-key
+                <Card car={car} />
               ))}
             </div>
 
+            {loading && (
+              <div className='mt-16 w-full flex-center'>
+                <Image
+                  src='/loader.svg'
+                  alt='loader'
+                  width={50}
+                  height={50}
+                  className='object-contain'
+                />
+              </div>
+            )}
+
             <ShowMore
-              pageNumber={(searchParams.limit || 20) / 10}
-              isNext={(searchParams.limit || 20) > allCars.length}
+              pageNumber={limit / 10}
+              isNext={limit > allCars.length}
+              setLimit={setLimit}
             />
           </section>
         ) : (
           <div className='home__error-container'>
             <h2 className='text-black text-xl font-bold'>No results</h2>
-            <p>{allCars.message}</p>
             <p>Please try again later.</p>
           </div>
         )}

@@ -7,8 +7,8 @@ import { useState, Fragment } from 'react';
 import { brands } from '@/constants/index';
 
 const SearchBrand = ({
-  brand,
-  setBrand,
+  selected,
+  setSelected,
 }: SearchBrandProps) => {
   const [query, setQuery] = useState('');
 
@@ -24,7 +24,7 @@ const SearchBrand = ({
 
   return (
     <div className='search-manufacturer'>
-      <Combobox value={brand} onChange={setBrand}>
+      <Combobox value={selected} onChange={setSelected}>
         <div className='relative w-full'>
           <Combobox.Button className={'absolute top-[14px]'}>
             <Image
@@ -61,10 +61,10 @@ const SearchBrand = ({
                   Nothing Found.
                 </Combobox.Option>
               ) : (
-                filteredBrands.map((brand: string) => (
+                filteredBrands.map((item: string) => (
                   <Combobox.Option
-                    key={brand}
-                    value={brand}
+                    key={item}
+                    value={item}
                     className={({ active }) =>
                       `relative search-manufacturer__option ${
                         active ? 'bg-primary-blue text-white' : 'text-gray-900'
@@ -78,7 +78,7 @@ const SearchBrand = ({
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {brand}
+                          {item}
                         </span>
 
                         {selected ? (

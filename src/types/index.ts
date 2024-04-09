@@ -1,5 +1,4 @@
 import { MouseEventHandler } from 'react';
-import CustomFilter from '../components/shared/filter/CustomFilter';
 
 export interface CustomButtonProps {
   title: string;
@@ -12,8 +11,8 @@ export interface CustomButtonProps {
 }
 
 export interface SearchBrandProps {
-  brand: string;
-  setBrand: (brand: string) => void;
+  selected: string;
+  setSelected: (brand: string) => void;
 }
 
 export interface CarProps {
@@ -39,9 +38,9 @@ export interface FilterProps {
   limit: number;
 }
 
-export interface HomeProps {
-  searchParams: FilterProps;
-}
+// export interface HomeProps {
+//   searchParams: FilterProps;
+// }
 
 export interface OptionProps {
   title: string;
@@ -56,4 +55,5 @@ export interface CustomFilterProps {
 export interface ShowMoreProps {
   pageNumber: number;
   isNext: boolean;
+  setLimit: (limit: number) => void;
 }
