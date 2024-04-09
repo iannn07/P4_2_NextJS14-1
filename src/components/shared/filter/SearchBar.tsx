@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import SearchManufacturer from './SearchBrand';
+import SearchBrand from './SearchBrand';
 import SearchButton from './SearchButton';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -46,7 +46,7 @@ const SearchBar = () => {
   return (
     <form className='searchbar' onSubmit={handleSearch}>
       <div className='searchbar__item'>
-        <SearchManufacturer brand={brand} setBrand={setBrand} />
+        <SearchBrand brand={brand} setBrand={setBrand} />
 
         <SearchButton additional='sm:hidden' />
       </div>
