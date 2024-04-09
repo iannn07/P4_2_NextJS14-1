@@ -12,7 +12,7 @@ interface CardProps {
 }
 
 const Card = ({ car }: CardProps) => {
-  const { city_mpg, make, model, transmission, drive, year } = car;
+  const { city_mpg, make, model, transmission, drive, year, fuel_type } = car;
   const [isToggle, setIsToggle] = useState(false);
 
   const carRent = calculateRent(city_mpg, year);
@@ -22,7 +22,7 @@ const Card = ({ car }: CardProps) => {
       {/* Car Basic Information */}
       <div className='car-card__content'>
         <h2 className='car-card__content-title'>
-          {make} {model} ({year})
+          {make.toUpperCase()} {model.toUpperCase()} ({year})
         </h2>
       </div>
 
@@ -60,11 +60,13 @@ const Card = ({ car }: CardProps) => {
           </div>
           <div className='flex flex-col justify-center items-center gap-2'>
             <Image src='/tire.svg' width={20} height={20} alt='tire' />
-            <p className='text-[14px]'>{drive.toUpperCase()}</p>
+
+            {/* API BUG FIX */}
+            <p className='text-[14px]'>{drive ? drive.toUpperCase() : 'N/A'}</p>
           </div>
           <div className='flex flex-col justify-center items-center gap-2'>
             <Image src='/gas.svg' width={20} height={20} alt='city mpg' />
-            <p className='text-[14px]'>{city_mpg} MPG</p>
+            <p className='text-[14px] capitalize'>{fuel_type}</p>
           </div>
         </div>
 

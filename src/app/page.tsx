@@ -2,16 +2,25 @@ import { Card, CustomFilter, Hero, SearchBar, ShowMore } from '@/components';
 import { fuels, yearsOfProduction } from '@/constants';
 import { HomeProps } from '@/types';
 import { getCars } from '@/utils';
-import { revalidatePath } from 'next/cache';
 
 export default async function Home({ searchParams }: HomeProps) {
   const { brand, year, model, limit, fuel } = searchParams;
+
+  // API BUG FIX
+  const car_years = [...yearsOfProduction];
+  let car_year = Number(
+    car_years[Math.floor(Math.random() * car_years.length)].value
+  );
+
+  if (car_year < 1950 || car_year > 2022) {
+    car_year = 2022;
+  }
 
   // API BUG DEFAULT VALUE
   const allCars = await getCars({
     brand: brand || '',
     model: model || '',
-    year: year || 2000,
+    year: year || car_year,
     fuel: fuel || '',
     limit: limit || 20,
   });

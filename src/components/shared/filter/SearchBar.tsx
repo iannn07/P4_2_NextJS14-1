@@ -36,7 +36,7 @@ const SearchBar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (brand === '' || model === '') {
+    if (brand === '' && model === '') {
       return alert('Please fill in the search bar');
     }
 

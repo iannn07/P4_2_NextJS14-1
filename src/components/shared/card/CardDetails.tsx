@@ -59,7 +59,7 @@ const CardDetails = ({ isToggle, car, handleClose }: CardDetailsProps) => {
                   <div className='flex-1 flex flex-col gap-3'>
                     <div className='relative w-full h-40 bg-pattern bg-cover bg-center rounded-lg overflow-hidden'>
                       <Image
-                        src={generateCarImageURL(car, "01")}
+                        src={generateCarImageURL(car, '01')}
                         alt='car model'
                         fill
                         priority
@@ -71,7 +71,7 @@ const CardDetails = ({ isToggle, car, handleClose }: CardDetailsProps) => {
                     <div className='flex gap-3'>
                       <div className='flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg'>
                         <Image
-                          src={generateCarImageURL(car, "29")}
+                          src={generateCarImageURL(car, '29')}
                           alt='car model'
                           fill
                           priority
@@ -80,7 +80,7 @@ const CardDetails = ({ isToggle, car, handleClose }: CardDetailsProps) => {
                       </div>
                       <div className='flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg'>
                         <Image
-                          src={generateCarImageURL(car, "33")}
+                          src={generateCarImageURL(car, '33')}
                           alt='car model'
                           fill
                           priority
@@ -89,7 +89,7 @@ const CardDetails = ({ isToggle, car, handleClose }: CardDetailsProps) => {
                       </div>
                       <div className='flex-1 relative w-full h-24 bg-primary-blue-100 rounded-lg'>
                         <Image
-                          src={generateCarImageURL(car, "13")}
+                          src={generateCarImageURL(car, '13')}
                           alt='car model'
                           fill
                           priority
@@ -112,7 +112,11 @@ const CardDetails = ({ isToggle, car, handleClose }: CardDetailsProps) => {
                             {key.split('_').join(' ')}
                           </h4>
                           <p className='text-black-100 font-semibold capitalize'>
-                            {key === 'drive' ? value.toUpperCase() : value}
+                            {key === 'drive' ||
+                            key === 'make' ||
+                            key === 'model'
+                              ? value.toUpperCase()
+                              : value}
                           </p>
                         </div>
                       ))}

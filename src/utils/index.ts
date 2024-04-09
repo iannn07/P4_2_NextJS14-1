@@ -3,13 +3,13 @@ import axios from 'axios';
 
 export async function getCars(filters: FilterProps) {
   const { brand, year, model, limit, fuel } = filters;
-  // console.log(filters);
+  console.log(filters);
 
   const response = await axios.get(
     `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${brand}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
     {
       headers: {
-        'X-RapidAPI-Key': 'a5d2c58859msh8b6b9cc17d34bbdp128a9fjsn595536d17b0c',
+        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
         'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com',
       },
     }
@@ -55,6 +55,6 @@ export const updateSearchParams = (type: string, value: string) => {
   searchParams.set(type, value);
 
   const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
-  
+
   return newPathname;
 };
